@@ -1,0 +1,3 @@
+Just before I started my junior year of classes I decided to get some more hands on experience with parallel computation. I ended up purchasing 5 Raspberry Pi 2s and networking them together in an MPI grid. I used MPICH for the software library. With 5 quad core Arm Cortex-A7 CPUs there is a total of 20 CPU cores available to write code for. I have run several tests and have benchmarked my cluster using MPI. I intend to use this as a learning tool to writing parallel code with MPI. I already have several software projects I plan to port to MPI and test it out on the cluster. 
+
+I hope to soon build a tutorial website on how to set one up!

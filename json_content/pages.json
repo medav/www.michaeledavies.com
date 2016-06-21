@@ -1,0 +1,33 @@
+{
+    "index": {
+        "friendly_name": "Home",
+        "nav_link": "/",
+        "show_in_nav": false,
+        "custom_route": false
+    },
+    "profile": {
+        "friendly_name": "Profile",
+        "nav_link": "/profile",
+        "show_in_nav": true,
+        "custom_route": false
+    },
+    "skills": {
+        "friendly_name": "Skills",
+        "nav_link": "/skills",
+        "show_in_nav": true,
+        "custom_route": false
+    },
+    "portfolio": {
+        "friendly_name": "Portfolio",
+        "nav_link": "/portfolio",
+        "show_in_nav": true,
+        "custom_route": true,
+        "route_module_filename": "portfolio.js"
+    },
+    "bits": {
+        "friendly_name": "Bits",
+        "nav_link": "http://bits.michaeledavies.com",
+        "show_in_nav": true,
+        "custom_route": false
+    }
+}
