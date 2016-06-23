@@ -15,8 +15,8 @@ engine.parse(fs.readFileSync('templates/shared_template.html', {encoding: 'utf-8
 });
 
 function route(page, route_handler) {
-    app.get('/' + page, function(req, res) {
-        global.pages[page].route_handler(res, page);
+    app.get('/' + page + '/:op?', function(req, res) {
+        global.pages[page].route_handler(req, res, page);
     });
 }
 
@@ -43,11 +43,11 @@ for(var page in global.pages) {
 
 app.get('/', function(req, res) {
     var page = global.pages['index'];
-    page.route_handler(res, 'index');
+    page.route_handler(req, res, 'index');
 });
 
 app.get('/js/*', function(req, res) {
-    var jsfilename = __dirname + '/js/' + req.params[0];
+    var jsfilename = __dirname + '/js_cl/' + req.params[0];
     res.sendFile(jsfilename);
 });
 

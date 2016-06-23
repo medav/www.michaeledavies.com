@@ -2,11 +2,11 @@
 {% for project in Portfolio %}
     <div class="row" style="padding-bottom: 10vh">
         <div class="col-md-4" style="margin-top: 3vh">
-            <img src="img/{{project.img}}" alt="Ooops!" class="img-circle" width="100%">
+            <img src="../img/{{project.img}}" alt="Ooops!" class="img-circle" width="100%">
         </div>
 
         <div class="col-md-8">
-            <h1>{{project.friendly_name}} <small>{{project.start_year}}</small><h1>
+            <h1><a href="{{project.short_name}}">{{project.friendly_name}}</a> <small>{{project.start_year}}</small><h1>
             <h3>{{project.short_desc}}</h3>
             {{project.html_content}}
         </div>

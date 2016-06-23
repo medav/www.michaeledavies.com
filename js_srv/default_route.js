@@ -15,7 +15,7 @@ function SendContent(res, page, template) {
 
 }
 
-function DefaultRouteHandler(res, page) {
+function DefaultRouteHandler(req, res, page) {
     var template_filename = 'templates/' + page + '_template.html';
     var template_content = fs.readFileSync(template_filename);
 

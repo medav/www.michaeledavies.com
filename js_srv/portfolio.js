@@ -41,13 +41,13 @@ function SendContent(res, page, template) {
 
 }
 
-function HandleRoute(res, page) {
+function HandleRoute(req, res, page) {
     var template_filename = 'templates/' + page + '_template.html';
     var template_content = fs.readFileSync(template_filename);
 
     global.engine.parse(template_content).then(function(template) {
         SendContent(res, page, template);
-    });    
+    });  
 }
 
 exports.route_handler = HandleRoute;
