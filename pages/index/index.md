@@ -4,7 +4,7 @@
 
 ### A Quick Elevator Speech
 
-> I am a **Computer Engineer**, and **Mathematcian**. I love programming and building things. I love to tinker and learn how all sorts of things work. Currently I am a senior at Iowa State University, and plan to attend graduate school after I finish my undergraduate degree.
+> I am a **Computer Engineer**, and **Mathematician**. I love programming and building things. I love to tinker and learn how all sorts of things work. Currently I am a senior at Iowa State University, and plan to attend graduate school after I finish my undergraduate degree.
 
 > Professionally, I have had the wonderful opportunity to work for **Rockwell Collins** as a technical intern, at **Iowa State University** as a undergraduate research assistant, and **Microsoft** for the past two summers as a software development engineering intern. 
 
