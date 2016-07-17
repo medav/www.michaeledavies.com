@@ -1,8 +1,8 @@
-var marked = require('marked');
 var fs = require('fs');
+var marked = require('marked');
 
 function SendContent(res, page, template) {
-    var content_filename = 'markdown/' + page + '.md';
+    var content_filename = 'pages/' + page + '/' + page + '.md';
     var markdown_content = fs.readFileSync(content_filename, {encoding: 'utf-8'});
     var page_content = marked(markdown_content);
 
@@ -16,7 +16,7 @@ function SendContent(res, page, template) {
 }
 
 function DefaultRouteHandler(req, res, page) {
-    var template_filename = 'templates/' + page + '_template.html';
+    var template_filename = 'pages/' + page + '/' + page + '.html';
     var template_content = fs.readFileSync(template_filename);
 
     global.engine.parse(template_content).then(function(template) {

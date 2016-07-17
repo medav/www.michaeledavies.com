@@ -1,13 +1,12 @@
 var app = require('express')();
 var http = require('http').Server(app);
-var marked = require('marked');
 var fs = require('fs');
 var path = require('path');
 Liquid = require('liquid-node');
 global.engine = new Liquid.Engine;
 
-global.pages = JSON.parse(fs.readFileSync('json_content/pages.json'));
-global.default_route_module = require('./js_srv/default_route.js');
+global.pages = JSON.parse(fs.readFileSync('pages.json'));
+global.default_route_module = require('./default_route.js');
 
 engine.parse(fs.readFileSync('templates/shared_template.html', {encoding: 'utf-8'}))
       .then(function(template) {
@@ -21,24 +20,23 @@ function route(page, route_handler) {
 }
 
 for(var page in global.pages) {
-    if(global.pages[page].custom_route) {
-        global.pages[page].route_module = 
-            require('./js_srv/' + global.pages[page].route_module_filename);
-
+    try {
+        global.pages[page].page_module = require('./pages/' + page + '/' + page + '.js');
     }
-    else {
-        global.pages[page].route_module = global.default_route_module;
+    catch (e) {
+        console.log(e);
+        continue;
     }
+    
 
     global.pages[page].route_handler = 
-        global.pages[page].route_module.route_handler;
+        global.pages[page].page_module.route_handler;
 
     if(global.pages[page].route_handler == null) {
-        console.error('Page route handler is null');
+        global.pages[page].route_handler = global.default_route_module.route_handler;
     }
-    else {
-        route(page, global.pages[page].route_handler);
-    }
+
+    route(page, global.pages[page].route_handler);
 }
 
 app.get('/', function(req, res) {
@@ -46,15 +44,19 @@ app.get('/', function(req, res) {
     page.route_handler(req, res, 'index');
 });
 
-app.get('/js/*', function(req, res) {
-    var jsfilename = __dirname + '/js_cl/' + req.params[0];
-    res.sendFile(jsfilename);
-});
+function RegisterPassthroughFileExtension(ext) {
+    var route_string = '/*.' + ext
+    app.get(route_string, function(req, res) {
+        var filename = req.params[0];
+        var fullname = __dirname + '/' + filename + '.' + ext;
+        res.sendFile(fullname);
+    });
+}
 
-app.get('/img/*', function(req, res) {
-    var imgfilename = __dirname + '/img/' + req.params[0];
-    res.sendFile(imgfilename);
-});
+RegisterPassthroughFileExtension('js');
+RegisterPassthroughFileExtension('css');
+RegisterPassthroughFileExtension('jpg');
+RegisterPassthroughFileExtension('png');
 
 http.listen(3000, function(){
   console.log('listening on *:3000');

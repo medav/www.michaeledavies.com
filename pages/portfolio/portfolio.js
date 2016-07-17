@@ -16,12 +16,12 @@ function CompareProjectByDate(p1,p2) {
 }
 
 function LoadPortfolio() {
-    global.portfolio = JSON.parse(fs.readFileSync('json_content/portfolio.json'));
+    global.portfolio = JSON.parse(fs.readFileSync('pages/portfolio/portfolio.json'));
 
     global.portfolio.sort(CompareProjectByDate);
 
     for(var id in global.portfolio) {
-        var content_filename = 'markdown/portfolio/' + global.portfolio[id].short_name + '.md';
+        var content_filename = 'pages/portfolio/projects/' + global.portfolio[id].short_name + '.md';
         var markdown_content = fs.readFileSync(content_filename, {encoding: 'utf-8'});
         global.portfolio[id].html_content = marked(markdown_content);
     }
@@ -42,7 +42,7 @@ function SendContent(res, page, template) {
 }
 
 function HandleRoute(req, res, page) {
-    var template_filename = 'templates/' + page + '_template.html';
+    var template_filename = 'pages/portfolio/' + page + '.html';
     var template_content = fs.readFileSync(template_filename);
 
     global.engine.parse(template_content).then(function(template) {

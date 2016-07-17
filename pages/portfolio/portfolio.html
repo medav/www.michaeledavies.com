@@ -1,8 +1,8 @@
 <h1>// Portfolio</h1>
 {% for project in Portfolio %}
-    <div class="row" style="padding-bottom: 10vh">
+    <div class="row" style="padding-bottom: 4vh; padding-top: 4vh">
         <div class="col-md-4" style="margin-top: 3vh">
-            <img src="../img/{{project.img}}" alt="Ooops!" class="img-circle" width="100%">
+            <img src="pages/portfolio/img/{{project.img}}" alt="Ooops!" class="img-circle" width="100%">
         </div>
 
         <div class="col-md-8">
@@ -12,4 +12,6 @@
         </div>
         
     </div>
+    <hr>
+    
 {% endfor %}
