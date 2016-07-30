@@ -13,7 +13,8 @@
         "start_year": 2014,
         "end_year": 2014,
         "short_desc": "Winning project at HackISU in Spring 2014.",
-        "img": "hackulus.png"
+        "img": "hackulus.png",
+        "url": "https://github.com/QuantumFractal/HackISU-HackulusRift"
     },
     {
         "short_name": "lmminigame",
@@ -21,7 +22,8 @@
         "start_year": 2014,
         "end_year": 2014,
         "short_desc": "A class project turned video game.",
-        "img": "lmminigame.png"
+        "img": "lmminigame.png",
+        "url": "https://github.com/medav/RDFT-Project"
     },
     {
         "short_name": "ledcube8",
@@ -29,7 +31,8 @@
         "start_year": 2014,
         "end_year": 2016,
         "short_desc": "An 8x8x8 LED Cube array created from scratch.",
-        "img": "ledcube8.png"
+        "img": "ledcube8.png",
+        "url": "http://medav.github.io/ledcube"
     },
     {
         "short_name": "bigbetta",
@@ -37,7 +40,8 @@
         "start_year": 2015,
         "end_year": 2015,
         "short_desc": "A winning hackathon project on Machine Learning.",
-        "img": "bigbetta.png"
+        "img": "bigbetta.png",
+        "url": "https://docs.google.com/presentation/d/1X_p_mxtfW_EkSAP8psG3FMuoyY_WDxL1nGXuQ-7StHs/edit#slide=id.gad9993619_5_130"
     },
     {
         "short_name": "mips",
