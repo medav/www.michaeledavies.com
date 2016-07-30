@@ -9,7 +9,7 @@
 ## Professional Experience
 #### Software Development Engineer Intern, **Microsoft** <small>Summer 2016</small>
 
-> Implemented support for DMA remapping using Intel VT-d in the Windows Kernel DMA API
+> Check back for some details soon!
 
 <br>
 #### Undergraduate Research Assistant, **ISU Center for Multi-phase Fluid Research** <small>2014 - Present</small>
