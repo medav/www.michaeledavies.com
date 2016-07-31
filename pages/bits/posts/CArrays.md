@@ -30,7 +30,7 @@ We will get back some bytes, with the elements looking like this:
 
 This is pretty cool, because now we can pass around pointers to these arrays and they can carry with them their own length and capacity so other client code doesn't have to include extra parameters to keep track of that.
 
-## Example program
+# Example program
 
 ~~~C
 #include <stdio.h>

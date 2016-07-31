@@ -66,6 +66,14 @@
         "end_year": 2015,
         "short_desc": "Croud-sourced graphic design.",
         "img": "helix.jpg"
+    },
+    {
+        "short_name": "website",
+        "friendly_name": "Personal Website",
+        "start_year": 2014,
+        "end_year": 2016,
+        "short_desc": "Insert witty caption here.",
+        "img": "website.png"
     }
 
 ]
