@@ -1,11 +1,4 @@
----
-layout: post
-title: "Advanced C arrays"
-date: 2016-05-28
-categories: c
----
-
-# So I found this weird / cool way to do arrays in C...
+## So I found this weird / cool way to do arrays in C...
 
 Take a look at this code:
 
@@ -33,11 +26,11 @@ arr = (struct _BYTE_ARRAY *) malloc(sizeof(arr) + some_length);
 
 We will get back some bytes, with the elements looking like this:
 
-![Array structure](http://bits.michaeledavies.com/images/carray.png)
+<img src="/pages/bits/assets/carray.png" alt="Array structure" style="width: 100%"/>
 
 This is pretty cool, because now we can pass around pointers to these arrays and they can carry with them their own length and capacity so other client code doesn't have to include extra parameters to keep track of that.
 
-# Example program
+## Example program
 
 ~~~C
 #include <stdio.h>

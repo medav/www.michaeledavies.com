@@ -21,7 +21,7 @@
     },
     "bits": {
         "friendly_name": "Bits",
-        "nav_link": "http://bits.michaeledavies.com",
+        "nav_link": "/bits",
         "show_in_nav": true
     }
 }

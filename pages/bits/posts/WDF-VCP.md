@@ -1,10 +1,3 @@
----
-layout: post
-title: "Windows Driver Framework and the VS Command Prompt"
-date: 2016-02-12
-categories: opl
----
-
 # Obscure Problem \#1
 
 ## Installation of WDF breaks some includes of cl.exe (most notably, corecrt.h) when using the Visual Studio Command Prompt tool.

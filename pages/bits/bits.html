@@ -1,0 +1,14 @@
+<h1>// Bits <small>- Musings of a Computer Engineer</small></h1>
+
+<div class="col-md-1"></div>
+<div class="col-md-10">
+    {% for post in Posts %}
+        <div class="row">
+
+            <h2><small>{{post.month}}/{{post.day}}/{{post.year}}</small></h2>
+            <h3><a href="/bits/{{post.page_name}}">{{post.title}}</a></h3>
+
+            <hr>
+        </div>
+    {% endfor %}
+</div>

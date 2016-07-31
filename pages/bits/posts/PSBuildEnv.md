@@ -1,10 +1,3 @@
----
-layout: post
-title: "Using PowerShell for Command Line Building"
-date: 2016-03-20
-categories: guides
----
-
 # Introduction and Motivation
 The first time a student is exposed to C and C++ is often on Linux using GNU's gcc compiler or on an emulator of bash called Cygwin. GNU’s gcc offers a simple one step process to compile a program.
  
