@@ -9,7 +9,9 @@
 ## Professional Experience
 #### Software Development Engineer Intern, **Microsoft** <small>Summer 2016</small>
 
-> Check back for some details soon!
+> Prototyped support for DMA remapping in the Windows HAL.
+
+> Demonstrated DMA remapping can be used with various in-box drivers without modification.
 
 <br>
 #### Undergraduate Research Assistant, **ISU Center for Multi-phase Fluid Research** <small>2014 - Present</small>
