@@ -11,7 +11,7 @@ struct _BYTE_ARRAY {
 }
 ~~~
 
-I noticed something similar in another code base. It caught me off gaurd because usually the `[]` in C is filled in with a number, or the array is given an explicit initialization. But there's a cool trick this let's you do. When you allocate heap space for a struct, you usually do something like this:
+I noticed something similar in another code base. It caught me off guard because usually the `[]` in C is filled in with a number, or the array is given an explicit initialization. But there's a cool trick this let's you do. When you allocate heap space for a struct, you usually do something like this:
 
 ~~~C
 struct foo * f = (struct foo *) malloc( sizeof(struct foo) );

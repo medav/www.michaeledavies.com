@@ -43,7 +43,7 @@ So let's talk about what really happens when you write a simple line of code to 
 
 First we need to go to the basics and talk about physical memory and how most OS's take care of it. On most modern systems memory is broken into chunks called `Pages`. A `Page` of memory usually is 4KB (for AMD64). This describes the smallest allocatable chunk of physical memory. This means even a 1 byte allocation will take at least 4KB of physical memory and the other 4095 bytes will sit there unused. Do keep in mind that successive allocations may use free space in pages returned from pervious allocations.
 
-AMD64 also allows for larger page sizes, usually 2MB and 1GB. This may seem arbitrary, but there is a specific reason to this. To undeerstand why these page sizes were decided on, we need take a look at a 64-bit memory address as viewd by an operating system:
+AMD64 also allows for larger page sizes, usually 2MB and 1GB. This may seem arbitrary, but there is a specific reason to this. To understand why these page sizes were decided on, we need take a look at a 64-bit memory address as viewd by an operating system:
 
 ![x86_64 Address Anatomy](http://bits.michaeledavies.com/images/x86_64-address-anatomy.png)
 
@@ -51,7 +51,7 @@ As you can see, an address to a 4KB page will have 52 bits for the `Page Frame N
 
 And of course, if we take 9 bits away from the page frame number and add it to the offset, we have 2MB page frames with 21 bit offsets and 43 bit PFNs. And if we take another 9 bits away we get 1GB pages with 30 bit offsets and 34 bit PFNs. 
 
-Again, this is simply a way for the OS to organize the system RAM. Of course, if you have less that 2^64 bytes of RAM, there will be a "maximum" page frame number (PFN) that is addressible. So if you have 32GB of physical RAM, the maximum number of 4KB pages is 16,498,688.  
+Again, this is simply a way for the OS to organize the system RAM. Of course, if you have less that 2^64 bytes of RAM, there will be a "maximum" page frame number (PFN) that is addressable. So if you have 32GB of physical RAM, the maximum number of 4KB pages is 16,498,688.  
 
 # Virtual Memory
 
@@ -65,7 +65,7 @@ The way this space is managed and used is something your program never sees or k
 temp = *num;
 ~~~
 
-A special hardware unit called the `Memory Map Unit` (Commonly referred to as an `MMU`) will automatically translate the virtual address (Va) of `num` into a Physical Address (Pa). The MMU then carries out the transaction with the DRAM to retireve the data from the physical address and place it where the core your program is running on can access.
+A special hardware unit called the `Memory Map Unit` (Commonly referred to as an `MMU`) will automatically translate the virtual address (Va) of `num` into a Physical Address (Pa). The MMU then carries out the transaction with the DRAM to retrieve the data from the physical address and place it where the core your program is running on can access.
 
 ![MMU Block Diagram](http://bits.michaeledavies.com/images/MMUBlockDiagram.png)
 
@@ -85,7 +85,7 @@ This is why we now use `Multi-level Page Tables`. In modern AMD64 based systems,
 
 // Graphic of 4-level page table
 
-A nice consequence of the 9-bit division means that for tables with 64-bit entries, 2^9*8=4096 bytes for one page structure. This magically means that a single page structure fits into *exactly* one page of memory. This is very convenient for programming these things. On the flip side, some architectures support variable sized pageing structures which really complicates things.
+A nice consequence of the 9-bit division means that for tables with 64-bit entries, 2^9*8=4096 bytes for one page structure. This magically means that a single page structure fits into *exactly* one page of memory. This is very convenient for programming these things. On the flip side, some architectures support variable sized paging structures which really complicates things.
 
 The way this saves memory, then, is that the table isn't completely filled out, nor does it have to be. When a process calls `malloc()`, some physical memory will be reserved for that allocation. In addition, the page structures for the process's virtual address space will be filled out to access that memory, creating an "on-demand" mapping. 
 
@@ -154,7 +154,7 @@ If the page is in physical memory, the TLB is updated, and the address is placed
 - The OS load the page into physical memory
 - The MMU updates the TLB and places the address on the bus
 
-After the RAM recieves the address, the data is loaded into the CPU and stored in the appropriate variable.
+After the RAM receives the address, the data is loaded into the CPU and stored in the appropriate variable.
 
 # Conclusion
 
