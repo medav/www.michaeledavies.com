@@ -10,7 +10,8 @@
 
 > Personally, I am most curious about the low-level workings of a computer - **Hardware**, and **Operating Systems**. I also am learning about **machine learning** and **data science**. Don't let that fool you though - I love to learn about the whole technology spectrum: from electrons to computational theory. 
 
+### Resume
+> Grab the latest copy of my resume [here](https://1drv.ms/b/s!AhBV_pq3X7p3gYBLgsMJOfl9ees54A)!
 
-### Fun Fact
 
-> This was written in **markdown** and compiled using **Node.js**!
+**Fun fact:** This was written in **markdown** and compiled using **Node.js**!
