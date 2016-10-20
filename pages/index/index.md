@@ -2,7 +2,7 @@
 
 > I'm Michael Davies, and this is my website!
 
-### A Quick Elevator Speech
+### Obligatory Elevator Speech
 
 > I am a **Computer Engineer**, and **Mathematician**. I love programming and building things. I love to tinker and learn how all sorts of things work. Currently I am a senior at Iowa State University, and plan to attend graduate school after I finish my undergraduate degree.
 
