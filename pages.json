@@ -9,6 +9,11 @@
         "nav_link": "/profile",
         "show_in_nav": true
     },
+    "research": {
+        "friendly_name": "Research",
+        "nav_link": "/research",
+        "show_in_nav": true
+    },
     "skills": {
         "friendly_name": "Skills",
         "nav_link": "/skills",
