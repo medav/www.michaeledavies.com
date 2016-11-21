@@ -29,11 +29,11 @@ The asterisk in this line is called the `dereference operator`. That's because i
 
 Beginning programming students will also be taught that memory looks something like this:
 
-![User Memory](http://bits.michaeledavies.com/bits/assets/UserMemory.png)
+![User Memory](http://www.michaeledavies.com/pages/bits/assets/UserMemory.png)
 
 But in reality, memory really looks like this:
 
-![System Memory](http://bits.michaeledavies.com/bits/assets/SystemMemory.png)
+![System Memory](http://www.michaeledavies.com/pages/bits/assets/SystemMemory.png)
 
 *Please note:* This is still simplified from all the complicated mess that goes on. 
 
@@ -45,7 +45,7 @@ First we need to go to the basics and talk about physical memory and how most OS
 
 AMD64 also allows for larger page sizes, usually 2MB and 1GB. This may seem arbitrary, but there is a specific reason to this. To understand why these page sizes were decided on, we need take a look at a 64-bit memory address as viewed by an operating system:
 
-![x86_64 Address Anatomy](http://bits.michaeledavies.com/bits/assets/x86_64-address-anatomy.png)
+![x86_64 Address Anatomy](http://www.michaeledavies.com/pages/bits/assets/x86_64-address-anatomy.png)
 
 As you can see, an address to a 4KB page will have 52 bits for the `Page Frame Number` (PFN), and 12 bits for the offset inside the page. When we talk about a page of physical memory, we refer to it as a `Page Frame`. This will become more important in a little bit. 
 
@@ -67,7 +67,7 @@ temp = *num;
 
 A special hardware unit called the `Memory Map Unit` (Commonly referred to as an `MMU`) will automatically translate the virtual address (Va) of `num` into a Physical Address (Pa). The MMU then carries out the transaction with the DRAM to retrieve the data from the physical address and place it where the core your program is running on can access.
 
-![MMU Block Diagram](http://bits.michaeledavies.com/bits/assets/MMUBlockDiagram.png)
+![MMU Block Diagram](http://www.michaeledavies.com/pages/bits/assets/MMUBlockDiagram.png)
 
 *Note:* This is a simplified view. There are many more things going on than just the MMU and DRAM. Almost every CPU today uses a multi-level cache to load and unload data from the DRAM into fast on-chip memory for quick access. I will leave this part out for now.
 
@@ -75,7 +75,7 @@ A special hardware unit called the `Memory Map Unit` (Commonly referred to as an
 
 So how does this virtual address thing work? Enter: `Page Tables`. These are magical data structures that define a mapping between a process's virtual address space and physical addresses. The most naive implementation would be a simple data structure that stores pairs of virtual pages and the physical page the map to:
 
-![Simple Page Table](http://bits.michaeledavies.com/bits/assets/SimplePageTable.png)
+![Simple Page Table](http://www.michaeledavies.com/pages/bits/assets/SimplePageTable.png)
 
 What would happen on a memory reference, then, is the MMU will perform what's called a `Page Table Walk` to lookup the physical page number associated with the virtual address. It then puts that physical address on the bus and retrieves the correct memory for your program. 
 
