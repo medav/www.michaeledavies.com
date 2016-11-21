@@ -1,11 +1,11 @@
----
-layout: post
-title: "Virtual Memory"
-date: 2016-06-05
-categories: os
----
 
-`Disclaimer:` This blog post (among others) is intended to be read by beginning or intermediate CS/SE/CprE students. Experienced programmers will probably find a lot of the definitions and details trivial but may still benefit from seeing the big picture.
+# Memory as seen by an Operating System
+
+`Disclaimer 1:` This blog post (among others) is intended to be read by beginning or intermediate CS/SE/CprE students. Experienced programmers will probably find a lot of the definitions and details trivial but may still benefit from seeing the big picture.
+
+`Disclaimer 2:` In this post I discuss the topic of virtual memory. For the sake of not over-complicating things, I leave out the effects of the CPU cache.
+
+`Disclaimer 3:` This is still in development. 
 
 # Let's talk about memory...
 
@@ -25,7 +25,7 @@ For now, let's dismiss the complete uselessness of the function `foo()`. I want 
 temp = *num;
 ~~~
 
-The astric in this line is called the `dereference operator`. That's because it takes a memory address (a.k.a. the "reference") and resolves its value... hence, "de-referencing". When beginning programming, most students will learn about this sort of thing under the subject of pointers.
+The asterisk in this line is called the `dereference operator`. That's because it takes a memory address (a.k.a. the "reference") and resolves its value... hence, "de-referencing". When beginning programming, most students will learn about this sort of thing under the subject of pointers.
 
 Beginning programming students will also be taught that memory looks something like this:
 
@@ -41,9 +41,9 @@ So let's talk about what really happens when you write a simple line of code to 
 
 # Physical Memory
 
-First we need to go to the basics and talk about physical memory and how most OS's take care of it. On most modern systems memory is broken into chunks called `Pages`. A `Page` of memory usually is 4KB (for AMD64). This describes the smallest allocatable chunk of physical memory. This means even a 1 byte allocation will take at least 4KB of physical memory and the other 4095 bytes will sit there unused. Do keep in mind that successive allocations may use free space in pages returned from pervious allocations.
+First we need to go to the basics and talk about physical memory and how most OS's take care of it. On most modern systems memory is broken into chunks called `Pages`. A `Page` of memory usually is 4KB (for AMD64). This describes the smallest allocate-able chunk of physical memory. This means even a 1 byte allocation will take at least 4KB of physical memory and the other 4095 bytes will sit there unused. Do keep in mind that successive allocations may use free space in pages returned from pervious allocations.
 
-AMD64 also allows for larger page sizes, usually 2MB and 1GB. This may seem arbitrary, but there is a specific reason to this. To understand why these page sizes were decided on, we need take a look at a 64-bit memory address as viewd by an operating system:
+AMD64 also allows for larger page sizes, usually 2MB and 1GB. This may seem arbitrary, but there is a specific reason to this. To understand why these page sizes were decided on, we need take a look at a 64-bit memory address as viewed by an operating system:
 
 ![x86_64 Address Anatomy](http://bits.michaeledavies.com/images/x86_64-address-anatomy.png)
 
@@ -117,13 +117,13 @@ temp = *num;
 
 # Translation Look-aside Buffers (TLBs)
 
-But wait, there's more! The MMU is a very spohisticated piece of hardware. It not only is capable of preforming the page table walks, but it also includes what's called a `Translation Look-aside Buffer`. This is a special hardware cache that stores address translation results. Essentially, it stores a set of virtual/physical page pairs that were a result of earlier page walks. So when a new translation request is intercepted, the MMU will first look at the TLB to see if the translation was already computed. A nice property of the TLB is that the entire TLB can be searched in a single operation (potentially a few clock cycles) so it is extremely fast.
+But wait, there's more! The MMU is a very sophisticated piece of hardware. It not only is capable of preforming the page table walks, but it also includes what's called a `Translation Look-aside Buffer`. This is a special hardware cache that stores address translation results. Essentially, it stores a set of virtual/physical page pairs that were a result of earlier page walks. So when a new translation request is intercepted, the MMU will first look at the TLB to see if the translation was already computed. A nice property of the TLB is that the entire TLB can be searched in a single operation (potentially a few clock cycles) so it is extremely fast.
 
 // Graphic of the TLB
 
 When a translation request is found in the TLB, this is called a `TLB hit`. If the request if not found, it is called a `TLB miss`. A TLB miss means that the MMU must go through the expensive process of performing a page table walk to determine the translation.
 
-Special care has to be taken with TLBs because when the CPU updates a page table, it has to ensure that the MMU has not cached now invalid translations. The CPU must execute a TLB flush on the MMU in this case, causing the invlid translations to be removed from the TLB. 
+Special care has to be taken with TLBs because when the CPU updates a page table, it has to ensure that the MMU has not cached now invalid translations. The CPU must execute a TLB flush on the MMU in this case, causing the invalid translations to be removed from the TLB. 
 
 Usually the flushing process can be done in such a way that valid translations remain, but some hardware implementations will cause `overflushing` to occur where some valid translations are also removed. This means those translations will cause a TLB miss the next time they are referenced.
 
