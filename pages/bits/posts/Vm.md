@@ -98,21 +98,11 @@ The way this saves memory, then, is that the table isn't completely filled out, 
 
 Here's how the MMU then calculates the physical address for your variable based on the virtual address and the process page tables:
 
-// Graphic of translation here
+![MMU Block Diagram](http://www.michaeledavies.com/pages/bits/assets/address-translation.png)
 
+First, the address is divided into the `9-9-9-9-12` format. The first group of nine bits is an index into the `Page Map Level 4` table. The resulting entry points to a `Page Directory Pointer Table`. The second group of nine bits indexes into this table, and so on. The resulting page table entry at the lowest level points to the base address of a 4kb page, to which the offset is added. The resulting addition is the translated address. 
 
-# Detailed Dereferencing (Part 1)
-
-So we have these page tables made up, and we map some memory through them for a process. So now we can describe in detail what happens on the hardware to carry out this line of code:
-
-~~~C
-temp = *num;
-~~~
-
-1. The process will executes the memory load instruction
-2. The MMU consumes the memory address of `num` and translates it to a physical address
-3. The MMU will place that address on the bus and retrieve the data
-4. The data is placed into `temp`
+This translation is performed by the MMU, accessing the RAM as needed to perform the table walk. Once the address is translated, the final translated page frame number (PFN) is associated with the 4 groups of nine bytes (the table indices). More on this in a bit.
 
 
 # Translation Look-aside Buffers (TLBs)
@@ -137,22 +127,11 @@ Sometimes, in low memory situations, some pages of memory will be written to the
 
 The MMU will generate an interrupt in these cases to the operating system to perform the necessary actions of loading the needed page back into physical memory. It is up to the OS to decide how to manage the physical memory space and where to place it.
 
-# Detailed Dereferencing (part 2)
+# Detailed Dereferencing
 
-So now we know all the details of address translation. So here's what happens when you dereference an address with `*num`:
+So now we know all the details of address translation (Minus caching). Here's what happens when you dereference an address with `*num`:
 
-- The virtual address is passed to the MMU
-- The MMU checks the TLB for the address
-
-If the MMU has a TLB hit, the address is placed on the bus
-
-- Otherwise the MMU performs the page table walk
-
-If the page is in physical memory, the TLB is updated, and the address is placed on the bus
-
-- Otherwise, the MMU issues an interrupt for the page fault
-- The OS load the page into physical memory
-- The MMU updates the TLB and places the address on the bus
+![MMU Block Diagram](http://www.michaeledavies.com/pages/bits/assets/dereference-flowchart.png)
 
 After the RAM receives the address, the data is loaded into the CPU and stored in the appropriate variable.
 
