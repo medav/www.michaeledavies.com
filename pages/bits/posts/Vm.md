@@ -57,7 +57,7 @@ Again, this is simply a way for the OS to organize the system RAM. Of course, if
 
 When you've written a program, and run the executable, the operating system (Windows, Linux, MacOSX, etc...) will create a `Virtual Address Space` for you. This is different from the `System Physical Address Space` in that the addresses in your program are completely made up! 
 
-# The Memory Map Unit (MMU)
+## The Memory Map Unit (MMU)
 
 The way this space is managed and used is something your program never sees or knows about, because the hardware and the operating system work together to do that. Your virtual address space is managed through something called a `Page Table` (more on this in a little bit) and when you do something like this:
 
@@ -69,9 +69,9 @@ A special hardware unit called the `Memory Map Unit` (Commonly referred to as an
 
 ![MMU Block Diagram](http://www.michaeledavies.com/pages/bits/assets/MMUBlockDiagram.png)
 
-*Note:* This is a simplified view. There are many more things going on than just the MMU and DRAM. Almost every CPU today uses a multi-level cache to load and unload data from the DRAM into fast on-chip memory for quick access. I will leave this part out for now.
+**Note:** This is a simplified view. There are many more things going on than just the MMU and DRAM. Almost every CPU today uses a multi-level cache to load and unload data from the DRAM into fast on-chip memory for quick access. I will leave this part out for now.
 
-# Page Tables
+## Page Tables
 
 So how does this virtual address thing work? Enter: `Page Tables`. These are magical data structures that define a mapping between a process's virtual address space and physical addresses. The most naive implementation would be a simple data structure that stores pairs of virtual pages and the physical page the map to:
 
@@ -85,16 +85,16 @@ This is why we now use `Multi-level Page Tables`. In modern AMD64 based systems,
 
 // Graphic of 4-level page table
 
-A nice consequence of the 9-bit division means that for tables with 64-bit entries, 2^9*8=4096 bytes for one page structure. This magically means that a single page structure fits into *exactly* one page of memory. This is very convenient for programming these things. On the flip side, some architectures support variable sized paging structures which really complicates things.
+A nice consequence of the 9-bit division means that for tables with 64-bit entries, 2^9x8=4096 bytes for one page structure. This magically means that a single page structure fits into *exactly* one page of memory. This is very convenient for programming these things. On the flip side, some architectures support variable sized paging structures which really complicates things.
 
 The way this saves memory, then, is that the table isn't completely filled out, nor does it have to be. When a process calls `malloc()`, some physical memory will be reserved for that allocation. In addition, the page structures for the process's virtual address space will be filled out to access that memory, creating an "on-demand" mapping. 
 
-`Note:` Page structures do not have to be nice and fit into a single page. Some systems will allow for variable size page tables and the structures them selves can be as large or small as permitted by the hardware. AMD64 is nice though because it works well with the 9-9-9-9-12 format.
+**Note:** Page structures do not have to be nice and fit into a single page. Some systems will allow for variable size page tables and the structures them selves can be as large or small as permitted by the hardware. AMD64 is nice though because it works well with the 9-9-9-9-12 format.
 
-`Note:` This is where the "48-bit" address space limit comes from. In modern AMD64 systems, since the MMU supports only 4 level page tables, a process's virtual address space is only capable of addressing 48 bits of memory - which comes out to 256 TB. Near as I can tell: Intel, AMD, and the OS dev's decided that would be enough RAM for one process for the forseeable future.
+**Note:** This is where the "48-bit" address space limit comes from. In modern AMD64 systems, since the MMU supports only 4 level page tables, a process's virtual address space is only capable of addressing 48 bits of memory - which comes out to 256 TB. Near as I can tell: Intel, AMD, and the OS dev's decided that would be enough RAM for one process for the forseeable future.
 
 
-# The Address Translation Process
+## The Address Translation Process
 
 Here's how the MMU then calculates the physical address for your variable based on the virtual address and the process page tables:
 
@@ -105,7 +105,7 @@ First, the address is divided into the `9-9-9-9-12` format. The first group of n
 This translation is performed by the MMU, accessing the RAM as needed to perform the table walk. Once the address is translated, the final translated page frame number (PFN) is associated with the 4 groups of nine bytes (the table indices). More on this in a bit.
 
 
-# Translation Look-aside Buffers (TLBs)
+## Translation Look-aside Buffers (TLBs)
 
 But wait, there's more! The MMU is a very sophisticated piece of hardware. It not only is capable of preforming the page table walks, but it also includes what's called a `Translation Look-aside Buffer`. This is a special hardware cache that stores address translation results. Essentially, it stores a set of virtual/physical page pairs that were a result of earlier page walks. So when a new translation request is intercepted, the MMU will first look at the TLB to see if the translation was already computed. A nice property of the TLB is that the entire TLB can be searched in a single operation (potentially a few clock cycles) so it is extremely fast.
 
@@ -119,9 +119,9 @@ Usually the flushing process can be done in such a way that valid translations r
 
 Thankfully, most MMUs don't store translation requests that were invalid. So when `malloc()` is called and a new page table entry is added, often no TLB flush is needed.
 
-`Note:` The flushing process is also often referred to as `TLB invalidation` or `TLB shootdown`.
+**Note:** The flushing process is also often referred to as `TLB invalidation` or `TLB shootdown`.
 
-# Memory Paging Considerations
+## Memory Paging Considerations
 
 Sometimes, in low memory situations, some pages of memory will be written to the hard disk (often called a `page file` or `swap file`). This means that when the MMU translates a request the page table entry may refer to a page that is not currently in memory. This is what is called a `Page Fault`, or some times a `Hard miss`. 
 
@@ -134,6 +134,8 @@ So now we know all the details of address translation (Minus caching). Here's wh
 ![MMU Block Diagram](http://www.michaeledavies.com/pages/bits/assets/dereference-flowchart.png)
 
 After the RAM receives the address, the data is loaded into the CPU and stored in the appropriate variable.
+
+`**` This is actually where a `segmentation fault` occurs. Most often a segmentation fault is caused by your program attempting to dereference a null (zero) pointer. The operating system rarely, if ever, will map the zero virtual page to your program and so as such, when the address is translated, the MMU will recognize this and treat is as an `access violation`. The operating will often respond by terminating your program immediately. 
 
 # Conclusion
 
