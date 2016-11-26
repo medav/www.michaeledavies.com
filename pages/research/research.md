@@ -1,10 +1,10 @@
 # // Research
 
 ## Interests
-    \- Reconfigurable Computing
-    \- Hardware Architecture
-    \- Computational Science
-    \- Machine Learning / Data Science
+    - Reconfigurable Computing
+    - Hardware Architecture
+    - Computational Science
+    - Machine Learning / Data Science
 
 <small>`Note: ` In order of interest </small>
 
