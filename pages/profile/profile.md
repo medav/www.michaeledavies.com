@@ -14,6 +14,7 @@
 
 > Engaged with students to help them learn C
 
+<br>
 #### Software Development Engineer Intern, **Microsoft** <small>Summer 2016</small>
 
 > Prototyped support for DMA remapping in the Windows HAL
