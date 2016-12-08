@@ -1,6 +1,6 @@
 # // Profile
 
-## Education <small>Iowa State Univsersity</small> 
+## Education <small>Iowa State University</small> 
 > B.S. **Computer Engineering, Mathematics** (GPA: 4.0)
 
 > *Expected Graduation:* **December 2017**
@@ -53,7 +53,7 @@
 > Recreated UML model from code for system verification
 
 <br><br>
-## Activites
+## Activities
 
 > Assisted organizing Iowa Regional Future Cities Competition, *2010 – Present*
 
@@ -76,4 +76,4 @@
 
 > Member of Tau Beta Pi 
 
-> Recieved Tau Beta Pi Scholarship
+> Received Tau Beta Pi Scholarship

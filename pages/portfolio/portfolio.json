@@ -1,5 +1,13 @@
 [
     {
+        "short_name": "mach",
+        "friendly_name": "Senior Design: Mach",
+        "start_year": 2016,
+        "end_year": 2017,
+        "short_desc": "A project in collaborative augmented reality.",
+        "img": "hololens.jpg"
+    },
+    {
         "short_name": "ledcube5",
         "friendly_name": "5x5x5 LED Cube",
         "start_year": 2013,
