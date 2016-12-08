@@ -7,6 +7,13 @@
 
 <br>
 ## Professional Experience
+
+#### Peer Mentor, **Iowa State Computer Engineering Department** <small>Fall 2016</small>
+
+> Lead lab sections for freshman programming course
+
+> Engaged with students to help them learn C
+
 #### Software Development Engineer Intern, **Microsoft** <small>Summer 2016</small>
 
 > Prototyped support for DMA remapping in the Windows HAL
