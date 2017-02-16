@@ -63,7 +63,7 @@ The way to fix this is to intentionally **not** map the entire virtual address s
 
 ![4-Level Page Table](http://www.michaeledavies.com/pages/bits/assets/PageTableDataStructure.png)
 
-The page table start with a single root page. For our x86-64 model, each table has 2^9 = 512 entries. Given a 48-bit address range, this means each entry corresponds to a 512GB of the virtual address range. In the likely case we don't use more than 512GB of RAM for a given address space, this means that we only have to use 1 out of the 512 entries, saving us the space required for the other 511 regions. 
+The page table starts with a single root page. For our x86-64 model, each table has 2^9 = 512 entries. Given a 48-bit address range, this means each entry corresponds to a 512GB of the virtual address range. In the likely case we don't use more than 512GB of RAM for a given address space, this means that we only have to use 1 out of the 512 entries, saving us the space required to map the other 511 regions. 
 
 **Why do we use 512 entry page tables?** This is out of convenience: given that each entry is 8 bytes, a 512 entry table will take exactly 4096 bytes, which is exactly one page of memory. This is also where the 9-bit division comes into play. Since 512 = 2^9, we require exactly 9 bits to address into a single page table level. 
 
@@ -119,8 +119,6 @@ That's it! Now we know all the details of address translation (Minus caching). H
 ![MMU Block Diagram](http://www.michaeledavies.com/pages/bits/assets/dereference-flowchart.png)
 
 After the RAM receives the address, the data is loaded into the CPU and stored in the appropriate register.
-
-**Fun Fact:** This is actually where a `segmentation fault` occurs. Most often a segmentation fault is caused by your program attempting to dereference a null (zero) pointer. The operating system rarely, if ever, will map the zero virtual page to your program and so as such, when the address is translated, the MMU will recognize this and treat is as an access violation. The operating system will usually respond by terminating your program immediately. 
 
 # Conclusion
 
