@@ -47,7 +47,7 @@ If we take 9 bits away from the page frame number and add it to the offset, we h
 
 # Virtual Memory
 
-Let's step back a moment. When you've written a program and run the executable, the operating system (Windows, Linux, MacOSX, etc...) will create a `Virtual Address Space` for you. It quite literally is a address space created out of thin air* by the OS. Your program then has free reign over the whole* space.
+Let's step back a moment. When you've written a program and run the executable, the operating system (Windows, Linux, MacOSX, etc...) will create a `Virtual Address Space` for you. It quite literally is a address space created out of thin air by the OS. Your program then has free reign over the whole space.
 
 ***Not actually**
 
