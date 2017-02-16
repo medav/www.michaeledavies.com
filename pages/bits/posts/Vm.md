@@ -1,15 +1,12 @@
 
 # Memory as seen by an Operating System
 
-`Disclaimer 1:` This blog post (among others) is intended to be read by beginning or intermediate CS/SE/CprE students. Experienced programmers will probably find a lot of the definitions and details trivial but may still benefit from seeing the big picture.
+`Disclaimer:` This blog post (among others) is intended to be read by beginning or intermediate CS/SE/CprE students. Experienced programmers will probably find a lot of the definitions and details trivial but may still benefit from seeing the big picture.
 
-`Disclaimer 2:` In this post I discuss the topic of virtual memory. For the sake of not over-complicating things, I leave out the effects of the CPU cache.
-
-`Disclaimer 3:` This is still in development. 
 
 # Let's talk about memory...
 
-Something I've become very familiar with over the last few months is the concept of virtual memory. Almost every computer system in the world relies on this idea to function. Consider this piece of code:
+Almost every computer system in the world relies on this idea to function. Consider this piece of code:
 
 ~~~c
 int foo(int * num) {
@@ -19,80 +16,72 @@ int foo(int * num) {
 }
 ~~~
 
-For now, let's dismiss the complete uselessness of the function `foo()`. I want to pay special attention to this line:
+I want to pay special attention to this line:
 
 ~~~c
 temp = *num;
 ~~~
 
-The asterisk in this line is called the `dereference operator`. That's because it takes a memory address (a.k.a. the "reference") and resolves its value... hence, "de-referencing". When beginning programming, most students will learn about this sort of thing under the subject of pointers.
-
-Beginning programming students will also be taught that memory looks something like this:
+The asterisk in this line is called the `dereference operator`. That's because it takes a memory address (a.k.a. the "reference") and resolves its value... hence, "de-referencing". When beginning programming, most students will learn about this sort of thing under the subject of pointers. Students will also be taught that memory looks something like this:
 
 ![User Memory](http://www.michaeledavies.com/pages/bits/assets/UserMemory.png)
 
-But in reality, memory really looks like this:
+But in reality, memory really looks more like this:
 
 ![System Memory](http://www.michaeledavies.com/pages/bits/assets/SystemMemory.png)
 
-*Please note:* This is still simplified from all the complicated mess that goes on. 
 
-So let's talk about what really happens when you write a simple line of code to do a `dereference` operation.
+Let's talk about what really happens when you write a simple line of code to do a `dereference` operation.
 
 # Physical Memory
 
-First we need to go to the basics and talk about physical memory and how most OS's take care of it. On most modern systems memory is broken into chunks called `Pages`. A `Page` of memory usually is 4KB (for AMD64). This describes the smallest allocate-able chunk of physical memory. This means even a 1 byte allocation will take at least 4KB of physical memory and the other 4095 bytes will sit there unused. Do keep in mind that successive allocations may use free space in pages returned from pervious allocations.
+First we need to go to the basics and talk about physical memory and how most OS's take care of it. On most modern systems memory is broken into chunks called `Pages`. For example, x86-64 largely uses 4kb pages. This describes the smallest allocate-able chunk of physical memory. This means even a 1 byte allocation will take at least 4KB of physical memory and the other 4095 bytes will sit there unused.
 
-AMD64 also allows for larger page sizes, usually 2MB and 1GB. This may seem arbitrary, but there is a specific reason to this. To understand why these page sizes were decided on, we need take a look at a 64-bit memory address as viewed by an operating system:
+x86-64 (as well as most architectures) also allows for larger page sizes, usually 2MB and 1GB - there is a specific reason to this. To understand why these page sizes were decided on, we need take a look at a 64-bit memory address as viewed by an operating system:
 
 ![x86_64 Address Anatomy](http://www.michaeledavies.com/pages/bits/assets/x86_64-address-anatomy.png)
 
-As you can see, an address to a 4KB page will have 52 bits for the `Page Frame Number` (PFN), and 12 bits for the offset inside the page. When we talk about a page of physical memory, we refer to it as a `Page Frame`. This will become more important in a little bit. 
+As you can see, an address to a 4KB page will have 52 bits for the `Page Frame Number` (PFN), and 12 bits (2^12 = 4096 bytes = 4KB) for the offset inside the page. When we talk about a page of physical memory, we refer to it as a `Page Frame`. This will become more important in a little bit. 
 
-And of course, if we take 9 bits away from the page frame number and add it to the offset, we have 2MB page frames with 21 bit offsets and 43 bit PFNs. And if we take another 9 bits away we get 1GB pages with 30 bit offsets and 34 bit PFNs. 
-
-Again, this is simply a way for the OS to organize the system RAM. Of course, if you have less that 2^64 bytes of RAM, there will be a "maximum" page frame number (PFN) that is addressable. So if you have 32GB of physical RAM, the maximum number of 4KB pages is 16,498,688.  
+If we take 9 bits away from the page frame number and add it to the offset, we have 2MB page frames with 21 bit offsets and 43 bit PFNs. And if we take another 9 bits away we get 1GB pages with 30 bit offsets and 34 bit PFNs. There is also a reason for this, which we will get to soon.
 
 # Virtual Memory
 
-When you've written a program, and run the executable, the operating system (Windows, Linux, MacOSX, etc...) will create a `Virtual Address Space` for you. This is different from the `System Physical Address Space` in that the addresses in your program are completely made up! 
+Let's step back a moment. When you've written a program and run the executable, the operating system (Windows, Linux, MacOSX, etc...) will create a `Virtual Address Space` for you. It quite literally is a address space created out of thin air* by the OS. Your program then has free reign over the whole* space.
 
-## The Memory Map Unit (MMU)
-
-The way this space is managed and used is something your program never sees or knows about, because the hardware and the operating system work together to do that. Your virtual address space is managed through something called a `Page Table` (more on this in a little bit) and when you do something like this:
-
-~~~
-temp = *num;
-~~~
-
-A special hardware unit called the `Memory Map Unit` (Commonly referred to as an `MMU`) will automatically translate the virtual address (Va) of `num` into a Physical Address (Pa). The MMU then carries out the transaction with the DRAM to retrieve the data from the physical address and place it where the core your program is running on can access.
-
-![MMU Block Diagram](http://www.michaeledavies.com/pages/bits/assets/MMUBlockDiagram.png)
-
-**Note:** This is a simplified view. There are many more things going on than just the MMU and DRAM. Almost every CPU today uses a multi-level cache to load and unload data from the DRAM into fast on-chip memory for quick access. I will leave this part out for now.
+***Not actually**
 
 ## Page Tables
 
-So how does this virtual address thing work? Enter: `Page Tables`. These are magical data structures that define a mapping between a process's virtual address space and physical addresses. The most naive implementation would be a simple data structure that stores pairs of virtual pages and the physical page the map to:
+The first thing the OS does to setup the virtual address space for your program is to create a `Page Table`. This is a data-structure that describes a mapping from a virtual address to a physical address. 
+
+Recall our use of pages to chunk memory. A page table is simply a key-value store that relates a virtual (made up) address to a physical PFN and offset. There is a problem with this: page tables representing very large address spaces will grow to enormous sizes very quickly. For example, to represent 48-bit address space with 4KB pages, you would need 2^36 = 68,719,476,736 entries. If each takes up 8 bytes that's a 524 TB page table! 
 
 ![Simple Page Table](http://www.michaeledavies.com/pages/bits/assets/SimplePageTable.png)
 
-What would happen on a memory reference, then, is the MMU will perform what's called a `Page Table Walk` to lookup the physical page number associated with the virtual address. It then puts that physical address on the bus and retrieves the correct memory for your program. 
+The way to fix this is to intentionally **not** map the entire virtual address space. This is achieved through the use of multi-level page tables. The idea is that each table is responsible for a small portion of the address space. x86-64 commonly uses a 4-level page table that looks like this:
 
-Of course, there is a problem with this. Page tables representing very large address spaces will grow to enormous sizes very quickly. For example, to represent 48-bit address space with 4KB pages, you would need 2^36 = 68,719,476,736 entires. If each takes up 8 bytes that's a 524 TB page table! 
+![4-Level Page Table](http://www.michaeledavies.com/pages/bits/assets/PageTableDataStructure.png)
 
-This is why we now use `Multi-level Page Tables`. In modern AMD64 based systems, it is common to use 4-level page tables where each level is responsible for 9 bits of address space. This way, we get our 4*9+12=48 bits accounted for. Here's a look at what this looks like:
+The page table start with a single root page. For our x86-64 model, each table has 2^9 = 512 entries. Given a 48-bit address range, this means each entry corresponds to a 512GB of the virtual address range. In the likely case we don't use more than 512GB of RAM for a given address space, this means that we only have to use 1 out of the 512 entries, saving us the space required for the other 511 regions. 
 
-// Graphic of 4-level page table
+**Why do we use 512 entry page tables?** This is out of convenience: given that each entry is 8 bytes, a 512 entry table will take exactly 4096 bytes, which is exactly one page of memory. This is also where the 9-bit division comes into play. Since 512 = 2^9, we require exactly 9 bits to address into a single page table level. 
 
-A nice consequence of the 9-bit division means that for tables with 64-bit entries, 2^9x8=4096 bytes for one page structure. This magically means that a single page structure fits into *exactly* one page of memory. This is very convenient for programming these things. On the flip side, some architectures support variable sized paging structures which really complicates things.
+If used, an entry in the root table will point to another page table with the exact same layout but one level down. This will correspond to another 9 bits of address space. In addition, we can leave entries in this table blank as well, saving us even more space. 
 
-The way this saves memory, then, is that the table isn't completely filled out, nor does it have to be. When a process calls `malloc()`, some physical memory will be reserved for that allocation. In addition, the page structures for the process's virtual address space will be filled out to access that memory, creating an "on-demand" mapping. 
+Continuing this process, we achieve 4 levels of page tables. The root is the 4th level, which controls 512GB regions of address space. The 3rd level controls 1GB regions of address space. The 2nd and 1st level page tables control 2MB and 4KB ranges, respectively.
 
-**Note:** Page structures do not have to be nice and fit into a single page. Some systems will allow for variable size page tables and the structures them selves can be as large or small as permitted by the hardware. AMD64 is nice though because it works well with the 9-9-9-9-12 format.
+**Why don't we have a 5th or 6th level to use all 64bits of hardware addressable space?** I don't know this for a fact but I am fairly certain this is simply because currently we don't have a computer system with anywhere close to 256TB of memory.
 
-**Note:** This is where the "48-bit" address space limit comes from. In modern AMD64 systems, since the MMU supports only 4 level page tables, a process's virtual address space is only capable of addressing 48 bits of memory - which comes out to 256 TB. Near as I can tell: Intel, AMD, and the OS dev's decided that would be enough RAM for one process for the forseeable future.
+## The Memory Management Unit (MMU)
 
+After an OS creates a page table representing the mapping, it asks the hardware for some help. Modern processors include hardware called a `Memory Management Unit`, or an MMU. The MMU and the OS work together to do some really cool stuff. Here's a nice diagram depicting where the MMU is in relation to the computer system:
+
+![MMU Block Diagram](http://www.michaeledavies.com/pages/bits/assets/MMUBlockDiagram.png)
+
+When in supervisor (kernel) mode, the OS can ask the MMU to load a page table. It does this by passing the physical address to the root page of the table created for your process. When the processor switches back into user mode to run your process, the MMU will transparently read the page table in the system memory to translate memory accesses from your program into system physical addresses.
+
+Pretty cool, right?
 
 ## The Address Translation Process
 
@@ -100,43 +89,39 @@ Here's how the MMU then calculates the physical address for your variable based 
 
 ![MMU Block Diagram](http://www.michaeledavies.com/pages/bits/assets/address-translation.png)
 
-First, the address is divided into the `9-9-9-9-12` format. The first group of nine bits is an index into the `Page Map Level 4` table. The resulting entry points to a `Page Directory Pointer Table`. The second group of nine bits indexes into this table, and so on. The resulting page table entry at the lowest level points to the base address of a 4kb page, to which the offset is added. The resulting addition is the translated address. 
+First, the address is divided into the `9-9-9-9-12` format. The first group of nine bits is an index into the `Page Map Level 4` table. The resulting entry points to a `Page Directory Pointer Table`. The second group of nine bits indexes into this table, and so on. The resulting page table entry at the lowest level points to the base address of a 4kb page, to which the offset is added. The resulting addition is the translated address. This process is called a `Table Walk`.
 
-This translation is performed by the MMU, accessing the RAM as needed to perform the table walk. Once the address is translated, the final translated page frame number (PFN) is associated with the 4 groups of nine bytes (the table indices). More on this in a bit.
-
+This translation is performed by the MMU, accessing the RAM as needed to perform the table walk. Once the address is translated, the final translated page frame number (PFN) is associated with the 4 groups of nine bytes (the table indices).
 
 ## Translation Look-aside Buffers (TLBs)
 
-But wait, there's more! The MMU is a very sophisticated piece of hardware. It not only is capable of preforming the page table walks, but it also includes what's called a `Translation Look-aside Buffer`. This is a special hardware cache that stores address translation results. Essentially, it stores a set of virtual/physical page pairs that were a result of earlier page walks. So when a new translation request is intercepted, the MMU will first look at the TLB to see if the translation was already computed. A nice property of the TLB is that the entire TLB can be searched in a single operation (potentially a few clock cycles) so it is extremely fast.
-
-// Graphic of the TLB
+In terms of runtime, table walks are very very expensive. To counter this, the MMU contains what's called a `Translation Look-aside Buffer`, or TLB. This is a special hardware cache that stores recent address translation results. Essentially, it stores a set of virtual/physical page pairs that were a result of earlier page walks. So when a new translation request is intercepted, the MMU will first look at the TLB to see if the translation was already computed. A nice property of the TLB is that the entire TLB can be searched in a single operation (potentially a few clock cycles) so it is extremely fast.
 
 When a translation request is found in the TLB, this is called a `TLB hit`. If the request if not found, it is called a `TLB miss`. A TLB miss means that the MMU must go through the expensive process of performing a page table walk to determine the translation.
 
-Special care has to be taken with TLBs because when the CPU updates a page table, it has to ensure that the MMU has not cached now invalid translations. The CPU must execute a TLB flush on the MMU in this case, causing the invalid translations to be removed from the TLB. 
+Special care has to be taken with TLBs because when the CPU updates a page table, it has to ensure that the MMU has not cached now invalid translations. The CPU must execute a TLB flush on the MMU in this case, causing the invalid translations to be removed from the TLB. This is done before returning to user mode so that no invalid memory access can happen.
 
-Usually the flushing process can be done in such a way that valid translations remain, but some hardware implementations will cause `overflushing` to occur where some valid translations are also removed. This means those translations will cause a TLB miss the next time they are referenced.
-
-Thankfully, most MMUs don't store translation requests that were invalid. So when `malloc()` is called and a new page table entry is added, often no TLB flush is needed.
-
-**Note:** The flushing process is also often referred to as `TLB invalidation` or `TLB shootdown`.
-
+# Some last bits
 ## Memory Paging Considerations
 
-Sometimes, in low memory situations, some pages of memory will be written to the hard disk (often called a `page file` or `swap file`). This means that when the MMU translates a request the page table entry may refer to a page that is not currently in memory. This is what is called a `Page Fault`, or some times a `Hard miss`. 
+Today, the hard disk is often used as another level of data caching. When memory has been unused for a while and another process asks for some, the OS may decide to evict a page from DRAM and store it on the hard drive in a special file often called a `page file` or `swap file`. 
 
-The MMU will generate an interrupt in these cases to the operating system to perform the necessary actions of loading the needed page back into physical memory. It is up to the OS to decide how to manage the physical memory space and where to place it.
+When the MMU translates a request to a page not currently in memory, it generates what's called a `Page Fault`. The MMU will generate an interrupt in these cases, switching the processor into kernel mode to perform the necessary actions of loading the needed page back into physical memory. It is up to the OS to decide how to manage the physical memory space and where to place it.
 
-# Detailed Dereferencing
+## Unmapped Entries / Access Violations
 
-So now we know all the details of address translation (Minus caching). Here's what happens when you dereference an address with `*num`:
+If a page table entry is empty or if it is marked as inaccessible, clearly the table walk will result in a failure. The MMU will also generate an interrupt in this case as an `Access Violation`. 
+
+# Wrap Up
+
+That's it! Now we know all the details of address translation (Minus caching). Here's what really happens when you dereference an address with `*num`:
 
 ![MMU Block Diagram](http://www.michaeledavies.com/pages/bits/assets/dereference-flowchart.png)
 
-After the RAM receives the address, the data is loaded into the CPU and stored in the appropriate variable.
+After the RAM receives the address, the data is loaded into the CPU and stored in the appropriate register.
 
-`**` This is actually where a `segmentation fault` occurs. Most often a segmentation fault is caused by your program attempting to dereference a null (zero) pointer. The operating system rarely, if ever, will map the zero virtual page to your program and so as such, when the address is translated, the MMU will recognize this and treat is as an `access violation`. The operating will often respond by terminating your program immediately. 
+**Fun Fact:** This is actually where a `segmentation fault` occurs. Most often a segmentation fault is caused by your program attempting to dereference a null (zero) pointer. The operating system rarely, if ever, will map the zero virtual page to your program and so as such, when the address is translated, the MMU will recognize this and treat is as an access violation. The operating system will usually respond by terminating your program immediately. 
 
 # Conclusion
 
-TL;DR: A lot happens when you dereference a variable. Take some time and consider just how many things have to happen just so you can load some data from memory.
+TL;DR: A lot happens when you dereference a variable. Take some time and consider just how many things have to go right just so you can load some data from memory.
