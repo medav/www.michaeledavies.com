@@ -1,6 +1,3 @@
-
-# Memory as seen by an Operating System
-
 `Disclaimer:` This blog post (among others) is intended to be read by beginning or intermediate CS/SE/CprE students. Experienced programmers will probably find a lot of the definitions and details trivial but may still benefit from seeing the big picture.
 
 
