@@ -10,8 +10,10 @@
 
 ## Publications
 
-**Automated design for microfluid flow sculpting: multi-resolution approaches, efficient encoding, and GPU implementation**. *Daniel Stoecklein, Michael Davies, Nadab Wubshet, Jonathan Le, Baskar Ganapathysubramanian*. 2016, Journal of Fluids Engineering.
+**[Optimizing isotope substitution in graphene for thermal conductivity minimization by genetic algorithm driven molecular simulations](http://aip.scitation.org/doi/10.1063/1.4979315)**. *Michael Davies, Baskar Ganapathysubramanian, Ganesh Balasubramanian*. 2017, Applied Physics Letters.
 
-**Deep Action Sequence Learning for Causal Shape Transformation**. *Kin Gwn Lore, Daniel Stoecklein, Michael Davies, Baskar Ganapathysubramanian, Soumik Sarkar*. 2016, arXiv preprint.
+**[Automated design for microfluid flow sculpting: multi-resolution approaches, efficient encoding, and GPU implementation](http://fluidsengineering.asmedigitalcollection.asme.org/article.aspx?articleid=2569573)**. *Daniel Stoecklein, Michael Davies, Nadab Wubshet, Jonathan Le, Baskar Ganapathysubramanian*. 2016, Journal of Fluids Engineering.
 
-**Hierarchical feature extraction for efficient design of microfluidic flow patterns**. *Kin Gwn Lore, Daniel Stoecklein, Michael Davies, Baskar Ganapathysubramanian, Soumik Sarkar*. 2015, Proceedings of The 1st International Workshop on “Feature Extraction: Modern Questions and Challenges”, NIPS.
+**[Deep Action Sequence Learning for Causal Shape Transformation](https://arxiv.org/abs/1605.05368)**. *Kin Gwn Lore, Daniel Stoecklein, Michael Davies, Baskar Ganapathysubramanian, Soumik Sarkar*. 2016, arXiv preprint.
+
+**[Hierarchical feature extraction for efficient design of microfluidic flow patterns](http://www.jmlr.org/proceedings/papers/v44/lore15.pdf)**. *Kin Gwn Lore, Daniel Stoecklein, Michael Davies, Baskar Ganapathysubramanian, Soumik Sarkar*. 2015, Proceedings of The 1st International Workshop on “Feature Extraction: Modern Questions and Challenges”, NIPS.
