@@ -1,5 +1,14 @@
 [
     {
+        "short_name": "yatml",
+        "friendly_name": "Yet Another Tutorial for ML",
+        "start_year": 2017,
+        "end_year": 2017,
+        "short_desc": "Machine learning in 60 slides or your money back.",
+        "img": "yatml.png",
+        "url": "https://github.com/medav/yatml"
+    },
+    {
         "short_name": "mach",
         "friendly_name": "Senior Design: Mach",
         "start_year": 2016,
