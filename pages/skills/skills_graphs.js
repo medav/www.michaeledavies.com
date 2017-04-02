@@ -1,6 +1,6 @@
 $(function () {
 
-	$('#programmingChart').highcharts({
+	Highcharts.chart('programmingChart', {
 
 		chart: {
 			polar: true,
@@ -48,7 +48,7 @@ $(function () {
 
 $(function () {
 
-	$('#softwareChart').highcharts({
+	Highcharts.chart('softwareChart', {
 
 		chart: {
 			polar: true,
