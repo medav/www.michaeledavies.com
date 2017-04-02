@@ -9,6 +9,15 @@
         "url": "https://github.com/medav/yatml"
     },
     {
+        "short_name": "nucleus",
+        "friendly_name": "Nucleus",
+        "start_year": 2017,
+        "end_year": 2017,
+        "short_desc": "An exercise of convolutional autoencoders for 3D depth inference.",
+        "img": "nucleus.png",
+        "url": "https://github.com/QuantumFractal/hackisu-2017-nucleus"
+    },
+    {
         "short_name": "mach",
         "friendly_name": "Senior Design: Mach",
         "start_year": 2016,

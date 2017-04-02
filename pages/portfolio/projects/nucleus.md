@@ -1,0 +1,3 @@
+My friend, Thomas Moll, and I set out to accomplish an ambitious hackathon project: to build a system capable of inferring depth from 2D images. We used a Microsoft Kinect V2 sensor to record several thousand images and their corresponding depth frame then used Keras and TensorFlow to train a convolutional autoencoder. Given a new 2D image, the network would predict the depth of each pixel. We then created an app to create a point cloud from the given depth frame. After some post processing, we could create a rough 3D model of what the original 2D image was looking at.
+
+The link above points to the git repository for the project. You can also view the slides [here](https://docs.google.com/presentation/d/1cjzIYvcD56aHvUHHz_yikEFI_VyeBBw57gOfm4wpaRM/edit?usp=sharing)!
