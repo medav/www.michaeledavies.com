@@ -1,1 +1,3 @@
-TODO
+I was invited to give a talk about machine learning to students at my school. The result of my effort was **yatml**: yet another tutorial for machine learning. Yatml, unlike some other tutorials, covers the underlying mathematics of neural networks in a nice controlled environment while also explaining how to then use the high powered features of **TensorFlow** and **Keras** to build up complex neural networks.
+
+The link above will point you to the git repository for all the code associated with the talk. Additionally, you can view the slides [here](https://1drv.ms/p/s!AhBV_pq3X7p3gs9uS6ygLdc01QTVFA)!
