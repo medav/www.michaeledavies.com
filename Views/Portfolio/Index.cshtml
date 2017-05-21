@@ -1,0 +1,22 @@
+﻿@model List<ProjectModel>
+@{
+    ViewData["Title"] = "Portfolio";
+}
+
+@addTagHelper "*, WebApiContrib.Core.TagHelpers.Markdown"
+
+@foreach(var project in @Model) {
+    <div class="row" style="padding-bottom: 4vh; padding-top: 4vh">
+        <div class="col-md-4" style="margin-top: 3vh">
+            <img src="~/images/portfolio/@project.img" alt="Ooops!" class="img-circle" width="100%">
+        </div>
+
+        <div class="col-md-8">
+            <h1><a href="@project.url">@project.friendlyname</a> <small>@project.startyear</small><h1>
+            <h3>@project.shortdesc</h3>
+            <md>@project.mdcontent</md>
+        </div>
+        
+    </div>
+    <hr>
+}

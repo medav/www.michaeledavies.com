@@ -1,0 +1,96 @@
+[
+    {
+        "shortname": "yatml",
+        "friendlyname": "Yet Another Tutorial for ML",
+        "startyear": 2017,
+        "endyear": 2017,
+        "shortdesc": "Machine learning in 60 slides or your money back.",
+        "img": "yatml.png",
+        "url": "https://github.com/medav/yatml"
+    },
+    {
+        "shortname": "mach",
+        "friendlyname": "Senior Design: Mach",
+        "startyear": 2016,
+        "endyear": 2017,
+        "shortdesc": "A project in collaborative augmented reality.",
+        "img": "hololens.jpg"
+    },
+    {
+        "shortname": "ledcube5",
+        "friendlyname": "5x5x5 LED Cube",
+        "startyear": 2013,
+        "endyear": 2013,
+        "shortdesc": "My first big hardware project.",
+        "img": "ledcube5.png"
+    },
+    {
+        "shortname": "hackulus",
+        "friendlyname": "Hackulus Rift",
+        "startyear": 2014,
+        "endyear": 2014,
+        "shortdesc": "Winning project at HackISU in Spring 2014.",
+        "img": "hackulus.png",
+        "url": "https://github.com/QuantumFractal/HackISU-HackulusRift"
+    },
+    {
+        "shortname": "lmminigame",
+        "friendlyname": "Leap Motion Minigame",
+        "startyear": 2014,
+        "endyear": 2014,
+        "shortdesc": "A class project turned video game.",
+        "img": "lmminigame.png",
+        "url": "https://github.com/medav/RDFT-Project"
+    },
+    {
+        "shortname": "ledcube8",
+        "friendlyname": "8x8x8 LED Cube",
+        "startyear": 2014,
+        "endyear": 2016,
+        "shortdesc": "An 8x8x8 LED Cube array created from scratch.",
+        "img": "ledcube8.png",
+        "url": "http://medav.github.io/ledcube"
+    },
+    {
+        "shortname": "bigbetta",
+        "friendlyname": "Big Betta",
+        "startyear": 2015,
+        "endyear": 2015,
+        "shortdesc": "A winning hackathon project on Machine Learning.",
+        "img": "bigbetta.png",
+        "url": "https://docs.google.com/presentation/d/1XpmxtfWEkSAP8psG3FMuoyYWDxL1nGXuQ-7StHs/edit#slide=id.gad99936195130"
+    },
+    {
+        "shortname": "mips",
+        "friendlyname": "5-Stage Pipelined MIPS Processor",
+        "startyear": 2015,
+        "endyear": 2015,
+        "shortdesc": "A class project in processor design.",
+        "img": "mips.png"
+    },
+    {
+        "shortname": "rpicluster",
+        "friendlyname": "Raspberry Pi Cluster",
+        "startyear": 2015,
+        "endyear": 2015,
+        "shortdesc": "An exercise in parallel Pi baking.",
+        "img": "pi_cluster.jpg"
+    },
+    {
+        "shortname": "helix",
+        "friendlyname": "Project Helix",
+        "startyear": 2015,
+        "endyear": 2015,
+        "shortdesc": "Croud-sourced graphic design.",
+        "img": "helix.jpg"
+    },
+    {
+        "shortname": "website",
+        "friendlyname": "Personal Website",
+        "startyear": 2014,
+        "endyear": 2016,
+        "shortdesc": "Insert witty caption here.",
+        "img": "website.png"
+    }
+
+]
