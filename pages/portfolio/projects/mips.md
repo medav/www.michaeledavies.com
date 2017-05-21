@@ -1,3 +1,0 @@
-Over the last semester I worked on a class project to implement in VHDL a functioning Pipelined MIPS processor. Over the course of several months we designed from the ground up a working 5-stage MIPS processor core. We implemented the entire project in VHDL. 
-
-The pipeline was tested with hand-assembled code implementing the bubble sort algorithm. We successfully tested our design and were able to sort lists of numbers with our processor.
