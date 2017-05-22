@@ -20,6 +20,11 @@ namespace michaeledavies.Controllers
             return View();
         }
 
+        public IActionResult Research()
+        {
+            return View();
+        }
+
         public IActionResult Skills()
         {
             return View();
