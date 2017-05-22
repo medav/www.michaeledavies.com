@@ -9,13 +9,6 @@
     ]
   },
   {
-    "outputFileName": "Content/",
-    // An array of relative input file paths. Globbing patterns supported
-    "inputFiles": [
-      "Content/**/*"
-    ]
-  },
-  {
     "outputFileName": "wwwroot/js/site.min.js",
     "inputFiles": [
       "wwwroot/js/site.js"

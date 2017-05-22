@@ -18,10 +18,10 @@ namespace michaeledavies.Controllers
         }
 
         private void LoadAllContent() {
-            projects = JsonConvert.DeserializeObject<List<ProjectModel>>(System.IO.File.ReadAllText("Content/Portfolio/portfolio.json"));
+            projects = JsonConvert.DeserializeObject<List<ProjectModel>>(System.IO.File.ReadAllText("wwwroot/content/portfolio/portfolio.json"));
 
             foreach (ProjectModel project in projects) {
-                project.mdcontent = System.IO.File.ReadAllText(string.Format("Content/Portfolio/{0}.md", project.shortname));
+                project.mdcontent = System.IO.File.ReadAllText(string.Format("wwwroot/content/portfolio/{0}.md", project.shortname));
             }
 
             projects.Sort((projA, projB) => {
