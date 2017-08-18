@@ -1,5 +1,14 @@
 [
     {
+        "shortname": "conware",
+        "friendlyname": "Conware",
+        "startyear": 2017,
+        "endyear": 2017,
+        "shortdesc": "A hardware accelerator for Conway's Game of Life",
+        "img": "conware.png",
+        "url": "https://docs.google.com/document/d/1aVvvSQ6EeK5tF-uStPp4bVe7T6H-RUdqtd0qSb2yhSU/edit?usp=sharing"
+    },
+    {
         "shortname": "yatml",
         "friendlyname": "Yet Another Tutorial for ML",
         "startyear": 2017,
