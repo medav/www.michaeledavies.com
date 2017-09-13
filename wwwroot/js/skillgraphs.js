@@ -24,7 +24,7 @@ function MakeChart(chartname, data) {
             gridLineInterpolation: 'polygon',
             lineWidth: 0,
             min: 0,
-            max: 7
+            max: 10
         },
 
         tooltip: {
