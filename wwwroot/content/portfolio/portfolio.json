@@ -1,5 +1,14 @@
 [
     {
+        "shortname": "flowsculpt",
+        "friendlyname": "Flow Sculpt",
+        "startyear": 2015,
+        "endyear": 2017,
+        "shortdesc": "An open-source utility for solving micropillar sequence design.",
+        "img": "flowsculpt.png",
+        "url": "https://www.me.iastate.edu/bglab/software/"
+    },
+    {
         "shortname": "conware",
         "friendlyname": "Conware",
         "startyear": 2017,

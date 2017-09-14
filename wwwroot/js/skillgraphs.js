@@ -48,15 +48,15 @@ function MakeChart(chartname, data) {
 $(function() {
     MakeChart('programmingChart', {
         'title': 'Programming Languages',
-        'xlabels': ['C/C++', 'Java', 'Python', 'C#', 'Bash', 'VBA'],
+        'xlabels': ['C and C++', 'Python', 'C#', 'Verilog', 'Java', 'JavaScript' ],
         'ylabel' : 'Years of Experience',
-        'yvalues': [9, 5, 5, 4, 5, 6]
+        'yvalues': [10, 6, 6, 3, 5, 3]
     });
 
     MakeChart('softwareChart', {
-        'title': 'Software and Tools',
-        'xlabels': ['Linux', 'Machine Learning', 'Virtualization', 'Cuda', 'Network programming', 'Visual Studio'],
+        'title': 'Software, Concepts, and Tools',
+        'xlabels': ['Machine Learning', 'Virtualization', 'FPGA', 'Hardware Development', 'Operating Systems', 'Assembly'],
         'ylabel' : 'Years of Experience',
-        'yvalues': [5, 2.5, 4, 3, 3, 7]
+        'yvalues': [3, 3, 3, 3, 3, 5]
     });
 });

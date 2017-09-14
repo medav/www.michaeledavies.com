@@ -1,3 +1,3 @@
-There have many iterations of my personal website over the years, but I finally built something worth mentioning. The website you are viewing now was written with **Node.js** as a backend, using **marked** for compiling markdown content into html, and **Liquid Node** as a templating engine. The pages are broken into modules, each having the ability to be a static web page or define custom routes to provide custom functionality (E.g. See my blog [here](/bits)).
+There have many iterations of my personal website over the years, but I finally built something worth mentioning. The website you are viewing now was written with **asp.net core 2.0** as a backend, using **Markdown** compiled into HTML content, and **Razer C#** as a templating engine. 
 
 You can see all the source code for my website [here](https://github.com/medav/www.michaeledavies.com).

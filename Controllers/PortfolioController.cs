@@ -25,7 +25,20 @@ namespace michaeledavies.Controllers
             }
 
             projects.Sort((projA, projB) => {
-                return int.Parse(projB.startyear) - int.Parse(projA.startyear);
+                double yearA = double.Parse(projA.startyear) 
+                    + double.Parse(projA.endyear) / 2.0;
+
+                double yearB = double.Parse(projB.startyear) 
+                    + double.Parse(projB.endyear) / 2.0;
+                
+                if (yearA > yearB) {
+                    return -1;
+                }
+                else if (yearA < yearB) {
+                    return 1;
+                }
+                
+                return 0;
             });
         }
 
