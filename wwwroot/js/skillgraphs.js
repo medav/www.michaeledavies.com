@@ -50,7 +50,7 @@ $(function() {
         'title': 'Programming Languages',
         'xlabels': ['C and C++', 'Python', 'C#', 'Verilog', 'Java', 'JavaScript' ],
         'ylabel' : 'Years of Experience',
-        'yvalues': [10, 6, 6, 3, 5, 3]
+        'yvalues': [10, 7, 6, 1, 5, 3]
     });
 
     MakeChart('softwareChart', {
